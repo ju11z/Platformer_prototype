@@ -16,4 +16,17 @@ public class InputController : MonoBehaviour
     {
         
     }
+
+    private void FixedUpdate()
+    {
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+
+        player.Move(moveX, moveZ);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player.Jump();
+        }
+    }
 }

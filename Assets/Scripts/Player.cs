@@ -18,20 +18,28 @@ public class Player : MonoBehaviour
         return rb.velocity.y == 0;
     }
 
-    private void FixedUpdate()
+    public void Jump()
     {
-        Debug.Log(rb.velocity.y);
-        rb.MovePosition(rb.position + transform.forward * MovementSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
-
-        float turn = Input.GetAxis("Horizontal") * RotationSpeed * Time.deltaTime;
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-        rb.MoveRotation(rb.rotation * turnRotation);
-
-
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (IsGrounded())
         {
             rb.AddForce(new Vector3(0, 100, 0), ForceMode.Impulse);
         }
+    }
+
+    public void Move(float moveX, float moveZ)
+    {
+        Debug.Log(rb.velocity.y);
+        rb.MovePosition(rb.position + transform.forward * MovementSpeed *  moveZ * Time.deltaTime);
+
+        float turn = moveX * RotationSpeed * Time.deltaTime;
+        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+        rb.MoveRotation(rb.rotation * turnRotation);
+
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     }
