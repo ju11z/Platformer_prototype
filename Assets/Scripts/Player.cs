@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float JumpForce = 5;
     public float MovementSpeed = 10;
     public float RotationSpeed = 180;
 
@@ -22,8 +23,13 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded())
         {
-            rb.AddForce(new Vector3(0, 100, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
         }
+    }
+
+    public void BeUnderWindInfluence(Vector3 direction, float force)
+    {
+        rb.AddForce(direction * force, ForceMode.Force);
     }
 
     public void Move(float moveX, float moveZ)
