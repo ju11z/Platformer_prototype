@@ -9,7 +9,8 @@ public class ExplosionBlock : MonoBehaviour
     public float ExplosionTime = 0.5f;
     public float ReloadTime = 5f;
 
-    //private float timer;
+    private BoxCollider collider;
+    private List<Player> players=new List<Player>();
 
     state currentState;
     enum state
@@ -17,20 +18,43 @@ public class ExplosionBlock : MonoBehaviour
         passive,activated,reload
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
-         
-            if (currentState == state.passive)
-            {
-                SetActivationState();
 
-                return;
+            if (!players.Contains(player))
+            {
+                players.Add(player);
             }
 
         }
+
+        Debug.Log(players.Count);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
+        {
+                players.Remove(player);
+        }
+
+        Debug.Log(players.Count);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+            if (currentState == state.passive)
+            {
+                if (collision.gameObject.TryGetComponent<Player>(out Player player))
+                {
+                    SetActivationState();
+
+                    return;
+                }
+                
+            }
     }
 
     private void SetActivationState()
@@ -67,6 +91,7 @@ public class ExplosionBlock : MonoBehaviour
 
         gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
+
 
 
 
