@@ -52,6 +52,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void BeForced(Vector3 force)
+    {
+        rb.AddForce(force, ForceMode.Impulse);
+    }
+
     public void BeUnderWindInfluence(Vector3 direction, float force)
     {
         rb.AddForce(direction * force, ForceMode.Force);

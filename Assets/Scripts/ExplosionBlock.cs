@@ -1,4 +1,4 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +11,8 @@ public class ExplosionBlock : MonoBehaviour
 
     private BoxCollider collider;
     private List<Player> players=new List<Player>();
+
+    public ParticleSystem explosion;
 
     state currentState;
     enum state
@@ -78,7 +80,16 @@ public class ExplosionBlock : MonoBehaviour
     private void Explode()
     {
         Debug.Log("explode");
+
+        Instantiate(explosion,transform);
         //взрыв, дамаг всех
+
+        foreach (Player player in players)
+        {
+            player.BeDamaged(5);
+            Vector3 force = new Vector3(Random.Range(0,2), Random.Range(3, 6), Random.Range(0, 2));
+            player.BeForced(force);
+        }
 
         gameObject.GetComponent<Renderer>().material.color = Color.red;
 
