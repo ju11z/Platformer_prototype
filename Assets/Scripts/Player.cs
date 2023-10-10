@@ -8,18 +8,30 @@ public class Player : MonoBehaviour
     public float JumpForce = 5;
     public float DefaultMovementSpeed = 10;
     public float DefaultRotationSpeed = 180;
+    public int MaxHealth=100;
 
     private float currentMovementSpeed;
     private float currentRotationSpeed;
 
     private Rigidbody rb;
 
-    private int maxHealth;
+    
     private int currentHealth;
+
+    public delegate void HealthHandler(int previousHealth, int healthChange, int currentHealth, int maxHealth);
+    public event HealthHandler PlayerDamaged;
+
+    public delegate void DeathHandler();
+    public event DeathHandler PlayerDied;
+
+    public delegate void FinishLineHandler();
+    public event FinishLineHandler PlayerCrossedFinishLine;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        SetDefaultHealth();
 
         currentMovementSpeed = DefaultMovementSpeed;
         currentRotationSpeed = DefaultRotationSpeed;
@@ -31,7 +43,22 @@ public class Player : MonoBehaviour
 
     public void BeDamaged(int damage)
     {
+        int oldHealth = currentHealth;
+        int newHealth = oldHealth - damage;
+
+        currentHealth = newHealth;
+
+        PlayerDamaged.Invoke(oldHealth, damage, newHealth, MaxHealth);
         currentHealth -= damage;
+
+        Debug.Log($"{newHealth} {MaxHealth}");
+
+        
+
+        if (currentHealth < 0)
+        {
+            Die();
+        }
     }
 
     public void BeHealed(int heal)
@@ -39,9 +66,19 @@ public class Player : MonoBehaviour
         currentHealth += heal;
     }
 
-    public void ResetHealth()
+    private void Die()
     {
+        PlayerDied.Invoke();
+    }
 
+    public void FallOff()
+    {
+        Die();
+    }
+
+    public void SetDefaultHealth()
+    {
+        currentHealth = MaxHealth;
     }
 
     public void Jump()

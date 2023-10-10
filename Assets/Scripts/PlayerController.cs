@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public Player player;
+    private Player player;
+
+    private bool playerIsControllable=true;
+
+    public void SetPlayerIsControllable(bool controllable)
+    {
+        playerIsControllable = controllable;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = gameObject.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -19,6 +26,12 @@ public class InputController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!player)
+            return;
+
+        if (!playerIsControllable)
+            return;
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
@@ -27,6 +40,11 @@ public class InputController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             player.Jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            player.BeDamaged(1);
         }
 
         /*
