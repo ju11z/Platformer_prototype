@@ -32,7 +32,7 @@ public class ExplosionBlock : MonoBehaviour
 
         }
 
-        Debug.Log(players.Count);
+        //Debug.Log(players.Count);
     }
 
     private void OnCollisionExit(Collision collision)
@@ -42,7 +42,7 @@ public class ExplosionBlock : MonoBehaviour
                 players.Remove(player);
         }
 
-        Debug.Log(players.Count);
+        //Debug.Log(players.Count);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -86,7 +86,7 @@ public class ExplosionBlock : MonoBehaviour
 
         foreach (Player player in players)
         {
-            player.BeDamaged(5);
+            player.BeDamaged(2);
             Vector3 force = new Vector3(Random.Range(0,2), Random.Range(3, 6), Random.Range(0, 2));
             player.BeForced(force);
         }

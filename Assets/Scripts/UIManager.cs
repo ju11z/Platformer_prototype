@@ -18,17 +18,22 @@ public class UIManager : MonoBehaviour
 
     public Image HealthProgeressBar;
 
+    public Text timerValue;
+
     private void Start()
     {
         FailPanel.gameObject.SetActive(false);
 
         FailRestartButton.onClick.AddListener(HandleRestartButtonClicked);
+
     }
 
     public void HandleRestartButtonClicked()
     {
         RestartCommand.Invoke();
     }
+
+   
 
     private void Update()
     {
@@ -41,6 +46,11 @@ public class UIManager : MonoBehaviour
     {
         //Debug.Log((float)(currentHealth / maxHealth));
         HealthProgeressBar.fillAmount = (float)currentHealth / (float)maxHealth;
+    }
+
+    public void UpdateTimer(int minutes, int seconds)
+    {
+        timerValue.text = minutes.ToString("00") + ":" + seconds.ToString("00");
     }
 
     public void ShowFailScreen()

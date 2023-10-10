@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 5;
     public float DefaultMovementSpeed = 10;
     public float DefaultRotationSpeed = 180;
-    public int MaxHealth=100;
+    public int MaxHealth=10;
 
     private float currentMovementSpeed;
     private float currentRotationSpeed;
@@ -24,8 +24,9 @@ public class Player : MonoBehaviour
     public delegate void DeathHandler();
     public event DeathHandler PlayerDied;
 
-    public delegate void FinishLineHandler();
-    public event FinishLineHandler PlayerCrossedFinishLine;
+    // public delegate void FinishLineHandler();
+    //public event FinishLineHandler PlayerCrossedFinishLine;
+    public event Action CrossedStartLine;
 
     private void Start()
     {
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
 
     public void SetDefaultHealth()
     {
+        Debug.Log("SetDefaultHealth");
         currentHealth = MaxHealth;
     }
 
