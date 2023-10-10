@@ -11,20 +11,24 @@ public class UIManager : MonoBehaviour
     public event Action ReplayCommand;
 
     public Button FailRestartButton;
+    public Button SuccessRestartButton;
 
     public event Action RestartCommand;
 
     public RectTransform FailPanel;
+    public RectTransform FinishPanel;
 
     public Image HealthProgeressBar;
 
     public Text timerValue;
+    public Text finishTimerValue;
 
     private void Start()
     {
         FailPanel.gameObject.SetActive(false);
 
         FailRestartButton.onClick.AddListener(HandleRestartButtonClicked);
+        SuccessRestartButton.onClick.AddListener(HandleRestartButtonClicked);
 
     }
 
@@ -60,6 +64,17 @@ public class UIManager : MonoBehaviour
     public void HideFailScreen()
     {
         FailPanel.gameObject.SetActive(false);
+    }
+
+    public void ShowFinishScreen(int minutes, int seconds)
+    {
+        finishTimerValue.text = $"Время прохождения : {minutes.ToString("00") + ":" + seconds.ToString("00")}";
+        FinishPanel.gameObject.SetActive(true);
+    }
+
+    public void HideFinishScreen()
+    {
+        FinishPanel.gameObject.SetActive(false);
     }
 
 

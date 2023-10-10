@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerPrefab;
     public Camera MainCamera;
     public StartLine startLine;
+    public FinishLine finishLine;
 
     private GameObject player_go;
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         player.PlayerDied += HandlePlayerDeath;
 
         startLine.PlayerCrossedStartLine += StartGame;
+        finishLine.PlayerCrossedFinishLine += FinishGame;
         
         UIManager.RestartCommand += HandleRespawn;
 
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     private async void HandleRespawn()
     {
+        timer = 0f;
         player_go = GameObject.Instantiate(PlayerPrefab, PlayerSpawn);
         //player = player_go.GetComponent<Player>();
         //playerController= player_go.GetComponent<PlayerController>();
@@ -77,6 +80,8 @@ public class GameManager : MonoBehaviour
         Debug.Log(player_go.GetInstanceID());
         MainCamera.GetComponent<FollowPlayer>().target = player_go.transform;
         UIManager.HideFailScreen();
+        UIManager.HideFinishScreen();
+
         UIManager.UpdateHealth(player.MaxHealth, 0, player.MaxHealth, 0);
 
         //currentState = state.running;
@@ -94,6 +99,11 @@ public class GameManager : MonoBehaviour
     private void FinishGame()
     {
         currentState = state.success;
+
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer % 60F);
+
+        UIManager.ShowFinishScreen(minutes,seconds);
     }
 
 
