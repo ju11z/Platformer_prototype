@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\InputController.cs" />
     <Compile Include="Assets\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\ExplosionBlock.cs" />
+    <Compile Include="Assets\Scripts\WindBlock.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
   </ItemGroup>

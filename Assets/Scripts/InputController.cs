@@ -29,9 +29,11 @@ public class InputController : MonoBehaviour
             player.Jump();
         }
 
+        /*
         if (Input.GetKey(KeyCode.F))
         {
             player.BeUnderWindInfluence(new Vector3(0.3f,0.5f,0.1f), 30);
         }
+        */
     }
 }
