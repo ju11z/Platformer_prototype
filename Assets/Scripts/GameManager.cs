@@ -29,7 +29,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        HandleRespawn();
+        player_go = GameObject.Instantiate(PlayerPrefab, PlayerSpawn);
+
+        player.SetDefaultHealth();
+        playerController.SetPlayerIsControllable(true);
+
+
+        Debug.Log(player_go.GetInstanceID());
         MainCamera.GetComponent<FollowPlayer>().target = player_go.transform;
         //и отписать
         player.PlayerDamaged += UIManager.UpdateHealth;
@@ -43,11 +49,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+    
+
     private void Update()
     {
         if (currentState == state.running)
         {
-            Debug.Log("abobus");
+            //Debug.Log("abobus");
             timer += Time.deltaTime;
             int minutes = Mathf.FloorToInt(timer / 60F);
             int seconds = Mathf.FloorToInt(timer % 60F);
@@ -57,35 +65,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetGameState(state state)
+    {
+        this.currentState = state;
+    }
+
     private void HandlePlayerDeath()
     {
         //playerController.SetPlayerIsControllable(false);
         //GameObject.Destroy(player);
+        SetGameState(state.fail);
         UIManager.ShowFailScreen();
-        GameObject.Destroy(player_go);
+        //GameObject.Destroy(player_go);
     }
 
     private async void HandleRespawn()
     {
         timer = 0f;
-        player_go = GameObject.Instantiate(PlayerPrefab, PlayerSpawn);
-        //player = player_go.GetComponent<Player>();
-        //playerController= player_go.GetComponent<PlayerController>();
-        //player_go.transform.position=PlayerSpawn.position;
-        player.SetDefaultHealth();
-        playerController.SetPlayerIsControllable(true);
-        //player = player_go.GetComponent<Player>();
-        //playerController = player_go.GetComponent<PlayerController>();
 
-        Debug.Log(player_go.GetInstanceID());
-        MainCamera.GetComponent<FollowPlayer>().target = player_go.transform;
+        player.SetDefaultHealth();
+        player_go.transform.position = PlayerSpawn.position;
+        //player_go = null;
+        
+
         UIManager.HideFailScreen();
         UIManager.HideFinishScreen();
-
         UIManager.UpdateHealth(player.MaxHealth, 0, player.MaxHealth, 0);
+        UIManager.UpdateTimer(0, 0);
 
-        //currentState = state.running;
-        //Player.SetDefaultHealth();
         
     }
 
@@ -93,12 +100,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("start game");
         timer = 0f;
-        currentState = state.running;
+        SetGameState(state.running);
     }
 
     private void FinishGame()
     {
-        currentState = state.success;
+        SetGameState(state.success);
 
         int minutes = Mathf.FloorToInt(timer / 60F);
         int seconds = Mathf.FloorToInt(timer % 60F);

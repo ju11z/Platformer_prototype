@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,8 +16,9 @@ public class Player : MonoBehaviour
 
     private Rigidbody rb;
 
-    
     private int currentHealth;
+
+    private Animator animator;
 
     public delegate void HealthHandler(int previousHealth, int healthChange, int currentHealth, int maxHealth);
     public event HealthHandler PlayerDamaged;
@@ -30,7 +32,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("player is instantiated");
+
         rb = GetComponent<Rigidbody>();
+
+        animator = GetComponent<Animator>();
 
         SetDefaultHealth();
 
@@ -55,7 +61,6 @@ public class Player : MonoBehaviour
         Debug.Log($"{newHealth} {MaxHealth}");
 
         
-
         if (currentHealth < 0)
         {
             Die();
@@ -88,7 +93,11 @@ public class Player : MonoBehaviour
         if (IsGrounded())
         {
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
+
+            animator.SetTrigger("IsJumping");
         }
+
+        
     }
 
     public void BeForced(Vector3 force)
@@ -115,12 +124,19 @@ public class Player : MonoBehaviour
 
     public void Move(float moveX, float moveZ)
     {
+        if(moveX==0 && moveZ == 0)
+        {
+            animator.SetBool("IsRunning", false);
+            return;
+        }
         //Debug.Log(rb.velocity.y);
         rb.MovePosition(rb.position + transform.forward * currentMovementSpeed *  moveZ * Time.deltaTime);
 
         float turn = moveX * currentRotationSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         rb.MoveRotation(rb.rotation * turnRotation);
+
+        animator.SetBool("IsRunning",true);
 
     }
 

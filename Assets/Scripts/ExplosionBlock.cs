@@ -79,7 +79,7 @@ public class ExplosionBlock : MonoBehaviour
 
     private void Explode()
     {
-        Debug.Log("explode");
+        //Debug.Log("explode");
 
         Instantiate(explosion,transform);
         //взрыв, дамаг всех
