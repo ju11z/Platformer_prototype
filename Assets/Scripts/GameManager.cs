@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
         player.SetDefaultHealth();
         player_go.transform.position = PlayerSpawn.position;
         //player_go = null;
+
+        player.ResetAllForces();
         
 
         UIManager.HideFailScreen();

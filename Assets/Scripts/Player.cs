@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     public float JumpForce = 5;
     public float DefaultMovementSpeed = 10;
     public float DefaultRotationSpeed = 180;
-    public int MaxHealth=10;
+    public int MaxHealth = 10;
+    public float DeathFallingPositionY= -40;
+    public float FallAnimationVelocityY = -10;
 
     private float currentMovementSpeed;
     private float currentRotationSpeed;
@@ -42,10 +44,12 @@ public class Player : MonoBehaviour
 
         currentMovementSpeed = DefaultMovementSpeed;
         currentRotationSpeed = DefaultRotationSpeed;
+
+        ResetAllForces();
     }
     private bool IsGrounded()
     {
-        return Math.Abs(rb.velocity.y)<0.2f;
+        return Math.Abs(rb.velocity.y) < 0.2f;
     }
 
     public void BeDamaged(int damage)
@@ -60,7 +64,7 @@ public class Player : MonoBehaviour
 
         Debug.Log($"{newHealth} {MaxHealth}");
 
-        
+
         if (currentHealth < 0)
         {
             Die();
@@ -97,7 +101,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("IsJumping");
         }
 
-        
+
     }
 
     public void BeForced(Vector3 force)
@@ -124,25 +128,48 @@ public class Player : MonoBehaviour
 
     public void Move(float moveX, float moveZ)
     {
-        if(moveX==0 && moveZ == 0)
+        if (moveX == 0 && moveZ == 0)
         {
             animator.SetBool("IsRunning", false);
             return;
         }
         //Debug.Log(rb.velocity.y);
-        rb.MovePosition(rb.position + transform.forward * currentMovementSpeed *  moveZ * Time.deltaTime);
+        rb.MovePosition(rb.position + transform.forward * currentMovementSpeed * moveZ * Time.deltaTime);
 
         float turn = moveX * currentRotationSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         rb.MoveRotation(rb.rotation * turnRotation);
 
-        animator.SetBool("IsRunning",true);
+        animator.SetBool("IsRunning", true);
 
     }
+
+    public void ResetAllForces()
+    {
+        Debug.Log("resetallforces");
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+
 
     private void FixedUpdate()
     {
-        
-    }
+        if (rb.velocity.y < FallAnimationVelocityY)
+        {
+            animator.SetBool("isFalling", true);
+        }
+        else
+        {
+            animator.SetBool("isFalling", false);
+        }
 
+        if(transform.position.y < DeathFallingPositionY)
+        {
+            Die();
+        }
+
+        Debug.Log($"velocity y {rb.velocity.y}");
     }
+}
+
+    
