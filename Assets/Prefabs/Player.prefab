@@ -59,7 +59,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641149009375456956}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -79,10 +79,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893917c1ab8b823439563def2a0c14ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 5
+  JumpForce: 25
   DefaultMovementSpeed: 10
   DefaultRotationSpeed: 180
   MaxHealth: 10
+  DeathFallingPositionY: -40
+  FallAnimationVelocityY: -2
 --- !u!114 &3096700743710295449
 MonoBehaviour:
   m_ObjectHideFlags: 0
