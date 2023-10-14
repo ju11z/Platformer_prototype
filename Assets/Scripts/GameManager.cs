@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
         //GameObject.Destroy(player);
         SetGameState(state.fail);
         UIManager.ShowFailScreen();
+
+        playerController.SetPlayerIsControllable(false);
         //GameObject.Destroy(player_go);
     }
 
@@ -95,7 +97,9 @@ public class GameManager : MonoBehaviour
         UIManager.UpdateHealth(player.MaxHealth, 0, player.MaxHealth, 0);
         UIManager.UpdateTimer(0, 0);
 
-        
+        playerController.SetPlayerIsControllable(true);
+
+
     }
 
     private void StartGame()
@@ -113,6 +117,8 @@ public class GameManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer % 60F);
 
         UIManager.ShowFinishScreen(minutes,seconds);
+
+        playerController.SetPlayerIsControllable(false);
     }
 
 
