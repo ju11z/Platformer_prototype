@@ -13,6 +13,11 @@ public class Player : MonoBehaviour
     public float DeathFallingPositionY= -40;
     public float FallAnimationVelocityY = -10;
 
+    private AudioSource audioSource;
+
+    public AudioClip deathSound;
+    public AudioClip damageSound;
+
     private float currentMovementSpeed;
     private float currentRotationSpeed;
 
@@ -46,6 +51,8 @@ public class Player : MonoBehaviour
         currentRotationSpeed = DefaultRotationSpeed;
 
         ResetAllForces();
+
+        audioSource = GetComponent<AudioSource>();
     }
     private bool IsGrounded()
     {
@@ -64,6 +71,8 @@ public class Player : MonoBehaviour
 
         Debug.Log($"{newHealth} {MaxHealth}");
 
+        audioSource.PlayOneShot(damageSound);
+
 
         if (currentHealth < 0)
         {
@@ -78,6 +87,8 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        audioSource.PlayOneShot(deathSound);
+
         PlayerDied.Invoke();
     }
 
@@ -94,7 +105,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() )
         {
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
 

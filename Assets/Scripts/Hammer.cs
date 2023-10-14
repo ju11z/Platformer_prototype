@@ -7,5 +7,6 @@ public class Hammer : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         transform.parent.GetComponent<HammerWrapper>().CollisionDetected(collision);
+
     }
 }

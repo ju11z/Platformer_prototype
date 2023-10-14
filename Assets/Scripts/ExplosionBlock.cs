@@ -8,6 +8,12 @@ public class ExplosionBlock : MonoBehaviour
     public float ActivationTime = 1f;
     public float ExplosionTime = 0.5f;
     public float ReloadTime = 5f;
+    public float MinExplosionForce = 15f;
+    public float MaxExplosionForce = 20f;
+
+    private AudioSource audioSource;
+
+    public AudioClip explosionSound;
 
     private BoxCollider collider;
     private List<Player> players=new List<Player>();
@@ -79,15 +85,15 @@ public class ExplosionBlock : MonoBehaviour
 
     private void Explode()
     {
-        //Debug.Log("explode");
 
         Instantiate(explosion,transform);
-        //взрыв, дамаг всех
+
+        audioSource.PlayOneShot(explosionSound);
 
         foreach (Player player in players)
         {
             player.BeDamaged(2);
-            Vector3 force = new Vector3(Random.Range(0,2), Random.Range(3, 6), Random.Range(0, 2));
+            Vector3 force = new Vector3(Random.Range(MinExplosionForce,MaxExplosionForce), Random.Range(MinExplosionForce, MaxExplosionForce), Random.Range(MinExplosionForce, MaxExplosionForce));
             player.BeForced(force);
         }
 
@@ -103,19 +109,11 @@ public class ExplosionBlock : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
 
-
-
-
-    private void Update()
+    private void Start()
     {
-        /*
-        if (timer > 0)
-        {
-            timer -= Time.deltaTime;
-        }
-        */
+        audioSource = GetComponent<AudioSource>();
     }
 
-    
+
 
 }
