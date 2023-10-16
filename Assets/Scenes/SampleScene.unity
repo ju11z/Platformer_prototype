@@ -2885,7 +2885,7 @@ HingeJoint:
   m_GameObject: {fileID: 1758232825}
   m_ConnectedBody: {fileID: 1758232828}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: -0.009}
+  m_Anchor: {x: 0, y: 0, z: -0.0098}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -2953,8 +2953,8 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: 0
-    max: 178.44882
+    min: 18.807789
+    max: 158.60934
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -2975,8 +2975,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.017320508, y: 0.020000275, z: 0.035568453}
-  m_Center: {x: -9.698995e-15, y: 0.00000006946708, z: 0.008298008}
+  m_Size: {x: 0.017320508, y: 0.020000285, z: 0.034727685}
+  m_Center: {x: -1.2385235e-14, y: -0.00000075777757, z: 0.008718406}
 --- !u!54 &1758232831
 Rigidbody:
   m_ObjectHideFlags: 0

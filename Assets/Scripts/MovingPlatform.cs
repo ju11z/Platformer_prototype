@@ -34,11 +34,18 @@ public class MovingPlatform : MonoBehaviour
         _currentWaypoint = 0;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!other.GetComponent<Player>()) return;
-        other.transform.parent = transform;
+        if (!collision.gameObject.GetComponent<Player>()) return;
+        collision.gameObject.transform.parent = transform;
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (!collision.gameObject.GetComponent<Player>()) return;
+        collision.gameObject.transform.parent = null;
+    }
+
 
     private void OnTriggerExit(Collider other)
     {
