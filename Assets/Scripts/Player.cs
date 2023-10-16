@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 
     public event Action CrossedStartLine;
 
+    private bool isFallenOff;
+
     private void Start()
     {
         Debug.Log("player is instantiated");
@@ -72,10 +74,15 @@ public class Player : MonoBehaviour
         audioSource.PlayOneShot(damageSound);
 
 
-        if (currentHealth < 0)
+        if (OutOfHealth())
         {
             Die();
         }
+    }
+
+    private bool OutOfHealth()
+    {
+        return currentHealth < 0;
     }
 
     public void BeHealed(int heal)
@@ -85,6 +92,8 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log("player died");
+
         audioSource.PlayOneShot(deathSound);
 
         PlayerDied.Invoke();
@@ -92,11 +101,13 @@ public class Player : MonoBehaviour
 
     public void FallOff()
     {
+        isFallenOff = true;
         Die();
     }
 
     public void SetDefaultHealth()
     {
+        isFallenOff = false;
         Debug.Log("SetDefaultHealth");
         currentHealth = MaxHealth;
     }
@@ -175,9 +186,9 @@ public class Player : MonoBehaviour
             animator.SetBool("IsFalling", false);
         }
 
-        if(transform.position.y < DeathFallingPositionY)
+        if(transform.position.y < DeathFallingPositionY && !isFallenOff)
         {
-            Die();
+            FallOff();
         }
 
         //Debug.Log($"velocity y {rb.velocity.y}");
