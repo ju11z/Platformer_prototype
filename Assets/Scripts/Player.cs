@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
     public delegate void DeathHandler();
     public event DeathHandler PlayerDied;
 
-    // public delegate void FinishLineHandler();
-    //public event FinishLineHandler PlayerCrossedFinishLine;
     public event Action CrossedStartLine;
 
     private void Start()
@@ -56,7 +54,7 @@ public class Player : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        return Math.Abs(rb.velocity.y) < 0.2f;
+        return Math.Abs(rb.velocity.y) < 0.3f;
     }
 
     public void BeDamaged(int damage)
@@ -107,9 +105,12 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded() )
         {
+            animator.SetTrigger("IsJumping");
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
 
-            animator.SetTrigger("IsJumping");
+            
+
+            //Debug.Log("jump attempt");
         }
 
 
@@ -167,11 +168,11 @@ public class Player : MonoBehaviour
     {
         if (rb.velocity.y < FallAnimationVelocityY)
         {
-            animator.SetBool("isFalling", true);
+            animator.SetBool("IsFalling", true);
         }
         else
         {
-            animator.SetBool("isFalling", false);
+            animator.SetBool("IsFalling", false);
         }
 
         if(transform.position.y < DeathFallingPositionY)
@@ -179,7 +180,7 @@ public class Player : MonoBehaviour
             Die();
         }
 
-        Debug.Log($"velocity y {rb.velocity.y}");
+        //Debug.Log($"velocity y {rb.velocity.y}");
     }
 }
 

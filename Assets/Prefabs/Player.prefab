@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893917c1ab8b823439563def2a0c14ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 25
+  JumpForce: 50
   DefaultMovementSpeed: 10
   DefaultRotationSpeed: 180
   MaxHealth: 10
