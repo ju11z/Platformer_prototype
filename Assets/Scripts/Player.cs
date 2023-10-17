@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public int MaxHealth = 10;
     public float DeathFallingPositionY= -40;
     public float FallAnimationVelocityY = -10;
+    public float SlowDownCoefficient = 4;
 
     private AudioSource audioSource;
 
@@ -139,8 +140,8 @@ public class Player : MonoBehaviour
 
     public void BeSlowedDown()
     {
-        currentMovementSpeed = DefaultMovementSpeed / 2;
-        currentRotationSpeed = DefaultRotationSpeed / 2;
+        currentMovementSpeed = DefaultMovementSpeed / SlowDownCoefficient;
+        currentRotationSpeed = DefaultRotationSpeed / SlowDownCoefficient;
     }
 
     public void BeSpedUp()
