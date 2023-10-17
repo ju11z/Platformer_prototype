@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\HammerWrapper.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\PendulumAxis.cs" />
+    <Compile Include="Assets\Scripts\PendulumBall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HammerWrapper : MonoBehaviour
 {
-    public int HammerDamage=1;
+    public int Damage=1;
     public float OrbitSpeed = 10.0f;
     public Transform rotateAround;
     public Transform hammer;
@@ -29,7 +29,7 @@ public class HammerWrapper : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
             Debug.Log("damage");
-            player.BeDamaged(HammerDamage);
+            player.BeDamaged(Damage);
 
         }
     }
