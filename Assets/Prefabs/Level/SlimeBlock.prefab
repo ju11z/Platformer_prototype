@@ -126,7 +126,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cfe3dbc03cbd10045a24fe3947a8cb26, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -225,3 +225,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slime: {fileID: 6409047944682022881, guid: f9e93f3d6dbadd348b1d183b7f10da80, type: 3}
+  slimeSound: {fileID: 8300000, guid: cfe3dbc03cbd10045a24fe3947a8cb26, type: 3}

@@ -4,32 +4,46 @@ using UnityEngine;
 
 public class SlimeBlock : MonoBehaviour
 {
+    /*
+     public AudioClip windSound;
+
+    private float windForce;
+    private Vector3 windDirection;
+    private bool windSoundIsPlaying;
+
+    private AudioSource audioSource;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            audioSource.PlayOneShot(windSound);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            audioSource.Stop();
+
+            player.ResetAllForces();
+        }
+    }
+     */
     public ParticleSystem Slime;
+    public AudioClip slimeSound;
 
     private bool letPlay;
     private bool playerIsOnSlime;
 
+    private AudioSource audioSource;
 
     private Vector3 playerPosition;
     private float slimeSpawnRate = 2f;
     private float slimeTime;
-    public void Update()
+    private void Start()
     {
-
-        if (letPlay)
-        {
-            if (Slime.isPlaying)
-            {
-                Slime.Play();
-            }
-        }
-        else
-        {
-            if (Slime.isPlaying)
-            {
-                Slime.Stop();
-            }
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -39,6 +53,8 @@ public class SlimeBlock : MonoBehaviour
         {
             playerIsOnSlime = true;
             player.BeSlowedDown();
+
+            audioSource.PlayOneShot(slimeSound);
         }
     }
 
@@ -57,6 +73,8 @@ public class SlimeBlock : MonoBehaviour
         {
             playerIsOnSlime = false;
             player.BeSpedUp();
+
+            audioSource.Stop();
         }
     }
 
