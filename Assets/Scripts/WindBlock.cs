@@ -28,6 +28,8 @@ public class WindBlock : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out Player player))
         {
             audioSource.Stop();
+
+            player.ResetAllForces();
         }
     }
     private void OnCollisionStay(Collision collision)
@@ -37,8 +39,6 @@ public class WindBlock : MonoBehaviour
         {
             player.BeUnderWindInfluence(windDirection, windForce);
             
-            //audioSource.Play(windSound);
-            //Debug.Log("player on windblock");
         }
     }
     

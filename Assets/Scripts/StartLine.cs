@@ -17,7 +17,7 @@ public class StartLine : MonoBehaviour
         if (other.GetComponent<Player>())
         {
             Debug.Log("PlayerCrossedStartLine.Invoke()");
-            PlayerCrossedStartLine.Invoke();
+            PlayerCrossedStartLine?.Invoke();
 
             audioSource.Play();
         }

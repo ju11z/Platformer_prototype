@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     public void HandleRestartButtonClicked()
     {
-        RestartCommand.Invoke();
+        RestartCommand?.Invoke();
     }
 
    

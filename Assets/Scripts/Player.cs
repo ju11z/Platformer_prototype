@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        return Math.Abs(rb.velocity.y) < 0.3f;
+        return Math.Abs(rb.velocity.y) < 0.1f;
     }
 
     public void BeDamaged(int damage)
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
         currentHealth = newHealth;
 
-        PlayerDamaged.Invoke(oldHealth, damage, newHealth, MaxHealth);
+        PlayerDamaged?.Invoke(oldHealth, damage, newHealth, MaxHealth);
         currentHealth -= damage;
 
         Debug.Log($"{newHealth} {MaxHealth}");
@@ -151,6 +151,7 @@ public class Player : MonoBehaviour
 
     public void Move(float moveX, float moveZ)
     {
+
         if (moveX == 0 && moveZ == 0)
         {
             animator.SetBool("IsRunning", false);
@@ -191,7 +192,8 @@ public class Player : MonoBehaviour
             FallOff();
         }
 
-        //Debug.Log($"velocity y {rb.velocity.y}");
+        Debug.Log(IsGrounded());
+        Debug.Log($"velocity y {rb.velocity.y}");
     }
 }
 
