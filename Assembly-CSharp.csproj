@@ -60,7 +60,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\SlimeBlock.cs" />
-    <Compile Include="Assets\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\WreckingBalll.cs" />
     <Compile Include="Assets\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\ExplosionBlock.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Assets\Scripts\FinishLine.cs" />
     <Compile Include="Assets\Scripts\HammerWrapper.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
-    <Compile Include="Assets\PendulumAxis.cs" />
+    <Compile Include="Assets\Scripts\PendulumAxis.cs" />
     <Compile Include="Assets\Scripts\PendulumBall.cs" />
   </ItemGroup>
   <ItemGroup>
